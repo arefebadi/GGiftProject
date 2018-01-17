@@ -1,0 +1,37 @@
+﻿@model HamperCategoryListViewModel
+
+
+<form asp-controller="Category" asp-action="AddCategory" method="post">
+    <h1>Category</h1>
+
+    <div class="form-group" hidden="hidden">
+        <label asp-for="@Model.CategoryId"></label>
+        <input class="form-control" asp-for="@Model.CategoryId" />
+        <span asp-validation-for="@Model.CategoryId"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="@Model.CategoryName">Name</label>
+        <input class="form-control" asp-for="@Model.CategoryName" />
+        <span asp-validation-for="@Model.CategoryName"></span>
+    </div>
+    <div class="form-group">
+        <input class="btn btn-primary" type="submit" value="Save" name="save" />
+    </div>
+    <table class="table table-hover">
+        <tr>
+            <th>Category Name</th>
+            <th></th>
+            <th></th>
+        </tr>
+        @for (int i = 0; i < Model.Categories.Count; i++)
+        {
+            <tr>
+                <td>@Model.Categories[i].CategoryName</td>
+                <td>
+                    <button class="btn btn-warning" type="submit" value="@Model.Categories[i].CategoryId" name="id">Edit</button>
+                </td>
+
+            </tr>
+        }
+    </table>
+</form>

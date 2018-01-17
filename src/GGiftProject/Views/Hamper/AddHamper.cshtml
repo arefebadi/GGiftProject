@@ -1,0 +1,61 @@
+﻿
+@model HamperAddViewModel
+
+<br />
+<h1>Add Hampers</h1>
+
+<form asp-controller="Hamper" asp-action="AddHamper" method="post" enctype="multipart/form-data">
+
+    <div class="container">
+        <div class="form-group" hidden="hidden">
+            <label asp-for="@Model.HamperId"></label>
+            <input class="form-control" asp-for="@Model.HamperId" />
+            <span asp-validation-for="@Model.HamperId"></span>
+        </div>
+        <div class="form-group" hidden="hidden">
+            <label asp-for="@Model.Image"></label>
+            <input class="form-control" asp-for="@Model.Image" />
+            <span asp-validation-for="@Model.Image"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CategoryId"></label>
+            <select class="form-control" asp-for="CategoryId">
+                @for (int i = 0; i < Model.Categories.Count; i++)
+                {
+                    <option value="@Model.Categories[i].CategoryId">@Model.Categories[i].CategoryName</option>
+                }
+            </select>
+            <span asp-validation-for="CategoryId"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Name">Name</label>
+            <input class="form-control" asp-for="Name" />
+            <span asp-validation-for="Name"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price">Price</label>
+            <input class="form-control" asp-for="Price" />
+            <span asp-validation-for="Price"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Details">Details</label>
+            <textarea class="form-control" asp-for="Details" rows="6"></textarea>
+            <span asp-validation-for="Details"></span>
+        </div>
+       
+        <div class="form-group">
+            <label asp-for="Image"></label>
+            <input name="file" type="file" />
+        </div>
+        <div class="checkbox">
+            <label asp-for="Discontinue">
+                <input type="checkbox" name="Discontinue" asp-for="Discontinue"> Discontinue
+            </label>
+            <span asp-validation-for="Discontinue"></span>
+        </div>
+        <div class="form-group">
+            <input class="btn btn-primary" type="submit" value="SaveHamper" name="Save" />
+        </div>
+
+    </div>
+</form>

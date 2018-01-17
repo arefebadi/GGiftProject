@@ -1,0 +1,17 @@
+﻿@model AccountAddRoleViewModel
+
+<form asp-controller="Account" asp-action="AddRole" method="Post">
+
+    <div asp-validation-summary="ModelOnly"></div>
+
+    <div>
+        <label asp-for="Name"></label>
+        <input asp-for="Name" />
+    </div>
+
+    <div>
+        <input type="submit" value="Save" />
+
+    </div>
+
+</form>

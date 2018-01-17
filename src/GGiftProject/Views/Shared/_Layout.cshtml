@@ -1,0 +1,115 @@
+﻿@{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GGiftProject</title>
+
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
+</head>
+<body>
+    <div class="container">
+        <div class="bs-docs-nav navbar navbar-inverse navbar-fixed-top ">
+            <div class="container">
+                @*<div class="row">
+                    <div class="col-md-6  col-sm-6 col-xs-12">*@
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+
+                    <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">
+                        <span style="background-image:url(/images/logo.svg); padding-top:10px; padding-left:30px; background-position:left; background-repeat:no-repeat; background-size:30px; color:aquamarine">GRANDEGIFT</span></a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                        <li><a asp-area="" asp-controller="Hamper" asp-action="HampersList">Hampers</a></li>
+                        <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    Manage
+                                    <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Add Role", "AddRole", "Account")</li>
+                                    <li>@Html.ActionLink("Add Hamper", "AddHamper", "Hamper")</li>
+                                    <li>@Html.ActionLink("Add Category", "AddCategory", "Category")</li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>@Html.ActionLink("Cart", "Checkout", "Hamper")</li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li>
+                                @Html.ActionLink(User.Identity.Name, "UpdateProfile", "Account")
+
+                            </li>
+                            <li>
+                                @Html.ActionLink("Logout", "Logout", "Account")
+                            </li>
+
+
+                        }
+                        else
+                        {
+                            <li>
+                                @Html.ActionLink("Register...", "Register", "Account")
+                            </li>
+                            <li>
+                                @Html.ActionLink("Login", "Login", "Account")
+                            </li>
+
+                        }
+
+
+                    </ul>
+                </div>
+               
+                <div class="navbar-collapse collapse">
+
+
+                </div>
+
+               
+            </div>
+        </div>
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer>
+                <p>
+                    <a asp-area="" asp-controller="Home" asp-action="Contact">Contact Us</a> | 
+                    <a asp-area="" asp-controller="Home" asp-action="PrivacyPolicy">Privacy Policy</a> |
+                    <a asp-area="" asp-controller="Home" asp-action="TermAndConditions">Term of Use</a>
+                </p>
+                <p>&copy; 2017 - GrandeGift. All Rights Reserved.</p>
+            </footer>
+        </div>
+
+
+
+
+
+        @RenderSection("scripts", required: false)
+    </div>
+</body>
+</html>

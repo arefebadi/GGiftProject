@@ -1,0 +1,176 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Wrapping element */
+/* Set some basic padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set widths on the form inputs since otherwise they're 100% wide */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* Carousel */
+.carousel-caption p {
+    font-size: 20px;
+    line-height: 1.4;
+}
+
+/* Make .svg files in the carousel display properly in older browsers */
+.carousel-inner .item img[src$=".svg"]
+{
+    width: 100%;
+}
+
+/* Hide/rearrange for smaller screens */
+@media screen and (max-width: 767px) {
+  /* Hide captions */
+  .carousel-caption {
+    display: none
+  }
+}
+
+.product-info {
+    text-align: center;
+    padding: 15px 0 10px;
+    position: relative;
+    background: #fff;
+}
+
+.price {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-family: 'Lato', sans-serif;
+}
+
+
+.quantity-input {
+  -webkit-appearance: none;
+  border: none;
+  text-align: center;
+  width: 32px;
+  font-size: 16px;
+  color: #43484D;
+  font-weight: 300;
+}
+ 
+.quantity-btn {
+  width: 30px;
+  height: 30px;
+  background-color: #E1E8EE;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+ 
+button:focus,
+input:focus {
+  outline:0;
+}
+
+.bg-info{
+    padding: 30px 10px 10px 10px;
+}
+
+.img-wrap {
+position: relative;
+float:left;
+}
+
+ .img-wrap #clear {
+position: absolute;
+top: 2px;
+right: 2px;
+z-index: 100;
+
+}
+
+ .hide{
+  display:none;
+ }
+
+ /* Rating */
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+/* styles for validation helpers */
+.field-validation-error {
+    color: #b94a48;
+}
+
+.field-validation-valid {
+    display: none;
+}
+
+input.input-validation-error {
+    border: 1px solid #b94a48;
+}
+
+input[type="checkbox"].input-validation-error {
+    border: 0 none;
+}
+
+.validation-summary-errors {
+    color: #b94a48;
+}
+
+.validation-summary-valid {
+    display: none;
+}
+
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 30px;
+}
+
+.rating span.star, .rating span.star {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+}
+
+.rating span.star:hover, .rating span.star:hover {
+    cursor: pointer;
+}
+
+.rating span.star:before, .rating span.star:before {
+    content: "★";
+    padding-right: 5px;
+    color: #BEC3C7;
+}
+
+.rating span.star:hover:before, .rating span.star:hover:before, .rating span.star:hover ~ span.star:before, .rating span.star:hover ~ span.star:before {
+    content: "★";
+    color: #41CAC0;
+}
+
+.rating span.star.active::before, .rating span.star.active::before, .rating span.star.active ~ span.star::before, .rating span.star.active ~ span.star::before {
+    color: #41cac0;
+    content: "★";
+}

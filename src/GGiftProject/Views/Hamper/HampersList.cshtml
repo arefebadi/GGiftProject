@@ -1,0 +1,141 @@
+﻿@model HamperHampersListViewModel
+
+<br />
+<h1>Hampers</h1>
+
+<form class="form-horizontal" asp-controller="Hamper" asp-action="HampersList" method="post">
+    <div asp-validation-summary="ModelOnly"> </div>
+    <div class="bg-info">
+        <div class="form-group">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="col-sm-3 control-label" asp-for="CategoryId">Category</label>
+                <div class="col-sm-9">
+                    <select class="form-control" asp-for="CategoryId">
+                        <option value="0">All</option>
+                        @for (int i = 0; i < Model.Categories.Count; i++)
+                        {
+                            <option value="@Model.Categories[i].CategoryId">@Model.Categories[i].CategoryName</option>
+                        }
+                    </select>
+                    <span asp-validation-for="CategoryId"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="col-sm-3 control-label" asp-for="MinPrice">Min Price</label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="MinPrice" />
+                    <span asp-validation-for="MinPrice"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="col-sm-3 control-label" asp-for="Name">Name</label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="Name" />
+                    <span asp-validation-for="Name"></span>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                <label class="col-sm-3 control-label" asp-for="MaxPrice">Max Price</label>
+                <div class="col-sm-9">
+                    <input class="form-control" asp-for="MaxPrice" />
+                    <span asp-validation-for="MaxPrice"></span>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-5 col-sm-7">
+                <input class="btn btn-primary" type="submit" value="Search" name="hampersList" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        @for (int i = 0; i < Model.Hampers.Count; i++)
+            {
+            <div class="col-md-4 col-sm-4 col-xs-12">
+                <div class="form-group" hidden="hidden">
+                    <label asp-for="@Model.Hampers[i].HamperId"></label>
+                    <input class="form-control" asp-for="@Model.Hampers[i].HamperId" />
+                    <span asp-validation-for="@Model.Hampers[i].HamperId"></span>
+                </div>
+                <div class="form-group" hidden="hidden">
+                    <label asp-for="@Model.Hampers[i].Image"></label>
+                    <input class="form-control" asp-for="@Model.Hampers[i].Image" />
+                    <span asp-validation-for="@Model.Hampers[i].Image"></span>
+                </div>
+                <div style="text-align:center">
+                    <img src="~/uploads/@Model.Hampers[i].Image" class="img-thumbnail" />
+                </div>
+                <div class="product-info">
+                    <div>
+                        @Html.HiddenFor(h => h.Hampers[i].Name)
+
+                        <h3>  @Html.ActionLink(Model.Hampers[i].Name, "ViewHamper", "Hamper", new { id = Model.Hampers[i].HamperId })</h3>
+                    </div>
+                    <div>
+                        @Html.HiddenFor(h => h.Hampers[i].Price)
+                        @Model.Hampers[i].Price.ToString("C")
+
+                    </div>
+                    <div class="quantity">
+                        <button class="quantity-btn minus-btn" data-type="minus" data-field="">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </button>
+
+                        <input class="quantity-input" asp-for="@Model.Hampers[i].Quantity">
+
+                        <button class="quantity-btn plus-btn" data-type="plus">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </button>
+                        <button class="btn btn-warning" type="submit" value="@Model.Hampers[i].HamperId" name="hamperIdString">ADD TO CART</button>
+                    </div>                 
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <div>
+                            <span>  @Html.ActionLink("Edit Hamper", "AddHamper", "Hamper", new { HamperId = Model.Hampers[i].HamperId })</span>
+                        </div>
+                    }
+                    <br/>
+                </div>
+            </div>
+        }
+
+    </div>
+
+    <script type="text/javascript">
+        $('.minus-btn').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value >= 1) {
+                value = value - 1;
+            } else {
+                value = 0;
+            }
+
+            $input.val(value);
+
+        });
+
+        $('.plus-btn').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value <= 100) {
+                value = value + 1;
+            } else {
+                value = 100;
+            }
+
+            $input.val(value);
+        });
+    </script>
+</form>

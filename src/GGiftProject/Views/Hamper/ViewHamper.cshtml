@@ -1,0 +1,133 @@
+﻿@model HamperViewModel
+
+<form asp-controller="Hamper" asp-action="ViewHamper" method="post">
+    <div class="container">
+        <div class="form-group" hidden="hidden">
+            <label asp-for="@Model.HamperId"></label>
+            <input class="form-control" asp-for="@Model.HamperId" />
+            <span asp-validation-for="@Model.HamperId"></span>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-6 col-xs-12">
+                @Html.HiddenFor(h => h.Image)
+                <img class="img-responsive img-thumbnail" src="~/uploads/@Model.Image" />
+            </div>
+            <div class="col-md-6 col-sm-6 col-xs-12">
+
+                <div>
+                    @Html.HiddenFor(h => h.Name)
+                    <h3> @Model.Name</h3>
+
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-8">
+                        <span class="rating">
+                            @for (int j = 1; j <= 5; j++)
+                            {
+                                var starClass = "star";
+                                if (Model.Rating == 6 - j)
+                                {
+                                    starClass += " active";
+                                }
+                                <span data-value="@(6 - j)" class="@starClass"></span>
+                            }
+                        </span>
+                    </div>
+                    <input asp-for="Rating" />
+                </div>
+
+                <div>
+                    @Html.HiddenFor(h => h.Price)
+                    @Model.Price.ToString("C")
+
+                </div>
+                <br />
+                <div>
+                    @Model.Details
+                </div>
+                <br />
+                <div class="quantity">
+                    <button class="quantity-btn minus-btn" data-type="minus" data-field="">
+                        <span class="glyphicon glyphicon-minus"></span>
+                    </button>
+
+                    <input class="quantity-input" asp-for="@Model.Quantity">
+
+                    <button class="quantity-btn plus-btn" data-type="plus">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                    <button class="btn btn-warning" type="submit" value="@Model.HamperId" name="hamperIdString">ADD TO CART</button>
+                </div>
+                @if (User.IsInRole("Admin"))
+                {
+                    <div>
+                        <span>  @Html.ActionLink("Edit Hamper", "AddHamper", "Hamper", new { HamperId = Model.HamperId })</span>
+                    </div>
+                }
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+    <script type="text/javascript">
+        $('.minus-btn').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value >= 1) {
+                value = value - 1;
+            } else {
+                value = 0;
+            }
+
+            $input.val(value);
+
+        });
+
+        $('.plus-btn').on('click', function (e) {
+            e.preventDefault();
+            var $this = $(this);
+            var $input = $this.closest('div').find('input');
+            var value = parseInt($input.val());
+
+            if (value <= 100) {
+                value = value + 1;
+            } else {
+                value = 100;
+            }
+
+            $input.val(value);
+        });
+
+
+        (function ($) {
+            function Rating() {
+                var $this = this;
+                function initialize() {
+                    $(".star").click(function () {
+                        $(".star").removeClass('active');
+                        $(this).addClass('active');
+                        var starValue = $(this).data("value");
+                        $("#Rating").val(starValue);
+
+                        var ref = '@Url.Action("ViewHamper", "Hamper" , new { id = Model.HamperId, rating = "_myRate" })';
+                        ref = ref.replace('_myRate', starValue);
+                        window.location.href = ref;
+                    })
+                }
+                $this.init = function () {
+                    initialize();
+                }
+            }
+            $(function () {
+                var self = new Rating();
+                self.init();
+            })
+        }(jQuery))
+    </script>
+</form>
